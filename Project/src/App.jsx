@@ -2,7 +2,8 @@ import React from 'react'
 
 const App = () => {
   return (
-    <div>App</div>
+    <div className='h-screen w-full bg-zinc-950 text-[#fafafa]'
+    >App</div>
   )
 }
 
