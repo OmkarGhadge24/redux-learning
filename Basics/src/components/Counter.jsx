@@ -1,9 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { increment, decrement } from "../slice/simpleSlice";
+import { increment, decrement, incrementByValue } from "../slice/simpleSlice";
+import { useState } from "react";
 
 const Counter = () => {
   const dispatch = useDispatch();
   const count = useSelector((state) => state.counter.value);
+  const [num, setNum] = useState(0)
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-900 text-white">
@@ -23,6 +25,18 @@ const Counter = () => {
             className="px-4 py-2 bg-red-300 hover:bg-red-400 text-black rounded"
           >
             Decrement
+          </button>
+        </div>
+
+        <div className="flex gap-4">
+          <input className="outline-none border border-zinc-400 rounded px-2" type="number" value={num} onChange={(e)=>{
+            setNum(e.target.value)
+          }} />
+          <button
+            onClick={() => dispatch(incrementByValue(Number(num)))}
+            className="px-4 py-2 bg-purple-300 hover:bg-purple-400 text-black rounded"
+          >
+            Increment By value
           </button>
         </div>
       </div>

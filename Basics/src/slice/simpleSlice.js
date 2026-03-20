@@ -11,9 +11,12 @@ export const simpleSlice = createSlice({
         },
         decrement : (state)=>{
             state.value > 0 ? state.value -=1 : state
+        },
+        incrementByValue : (state , actions) =>{
+            state.value += actions.payload
         }
     }
 })
 
-export const {increment, decrement} = simpleSlice.actions;
+export const {increment, decrement, incrementByValue} = simpleSlice.actions;
 export default simpleSlice.reducer;
