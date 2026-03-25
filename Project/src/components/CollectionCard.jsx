@@ -1,11 +1,13 @@
-import { MdSave } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 
-const ResultCard = ({ item }) => {
-  const addToCollection = (item) =>{
-    const oldData = JSON.parse(localStorage.getItem('collection')) || []
-    const newData = [...oldData,item]
-    localStorage.setItem('collection',JSON.stringify(newData))
-  }
+const CollectionCard = ({ item, onDelete }) => {
+  const removeFromCollection = () => {
+    const oldData = JSON.parse(localStorage.getItem("collection")) || [];
+    const newData = oldData.filter((col) => col.id !== item.id);
+    localStorage.setItem("collection", JSON.stringify(newData));
+    onDelete(item.id);
+  };
+
   return (
     <div className="group relative w-full max-w-xs rounded-2xl overflow-hidden shadow-lg cursor-pointer">
       <div className="relative h-60">
@@ -32,17 +34,18 @@ const ResultCard = ({ item }) => {
             {item.title || "Untitled"}
           </h2>
           <button
-          onClick={()=>{
-            addToCollection(item)
-          }}
-           className="bg-white text-black p-2 rounded-full shadow-md hover:scale-110 transition">
-            <MdSave size={18} />
+            onClick={(e) => {
+              e.preventDefault();
+              removeFromCollection();
+            }}
+            className="bg-red-500 text-white p-2 rounded-full shadow-md hover:scale-110 transition hover:bg-red-600"
+          >
+            <MdDelete size={18} />
           </button>
-
         </div>
       </div>
     </div>
   );
 };
 
-export default ResultCard;
+export default CollectionCard;
